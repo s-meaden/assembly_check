@@ -18,7 +18,7 @@ dfs <- lapply(input_files, function(filename) {
 %>%
         mutate(sample_name = gsub("./", "", sample_name)) %>%
         select(-filename)
-    return(df)
+return(df)
 })
 
 # Combine data frames into a single data frame
@@ -27,7 +27,7 @@ combined_df <- do.call(rbind, dfs)
 # Plot accumulation curve:
 
 options(scipen=10000)
-palette<-c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", 
+palette<-c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442",
 "#0072B2", "#D55E00", "#CC79A7")
 
 curve_plot<-combined_df %>%
@@ -35,6 +35,7 @@ curve_plot<-combined_df %>%
   dplyr::arrange( sample_name, -length) %>%
   dplyr::mutate( contig_order = 1:length(contig_name)) %>%
   dplyr::mutate( cumsum = cumsum(length)) %>%
+  dplyr::mutate( sample_name = gsub("contig_length", "", sample_name)) %>%
   ggplot( ., aes(contig_order, cumsum))+
   geom_line( aes(color = sample_name))+
   theme_classic()+
@@ -47,4 +48,6 @@ curve_plot<-combined_df %>%
 # Save plot:
 # Save plot:
 print( paste("Saving plot as:", output_file))
-ggsave(plot = curve_plot, filename =  output_file, width = 5, height = 5)
+ggsave(plot = curve_plot, filename =  output_file, width = 7.5, height = 
+5)
+
