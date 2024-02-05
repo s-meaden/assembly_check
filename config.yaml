@@ -1,0 +1,8 @@
+samples:
+- AS_test.fasta
+- control_test.fasta
+  # Add more samples as needed
+
+#sample_depth: 5000
+#kraken_database: "~/scratch/databases/kraken2"
+#kraken_threads: 1
